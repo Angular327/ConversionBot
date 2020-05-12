@@ -116,4 +116,4 @@ client.on('message', message => {
             message.channel.send(finalMessage);
     }
 });    
-client.login('NjY0NzE0MjA0MTQ1NjQ3NjE2.XrnrgA.npoS9bWQXO81fOD_D9Xl3u6vmuc');
+client.login('NjYyNTIyODA1MTIzOTQwMzUz.XrnuQQ.i7QueF7c75aSsUr1XJznsFcmOHg');
