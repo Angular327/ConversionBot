@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const convert = require('convert-units')
-const foldedGenes = "425416110003716118";
+const Conversion = require('./Conversion');  
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
@@ -15,105 +14,22 @@ client.on('message', msg => {
 
 client.on('message', message => {
     if(!message.author.bot) {
-        let finalMessage = "";
-        if(message.author.id != foldedGenes) {
-            //LB to KG
-            if(message.content.toLowerCase().includes('lb')) {
-                let i = 0;
-                let x;
-                let s = 0;
-                let TempMessage = message.content.toLowerCase();
-                while(i >= 0) {
-                    x = ""
-                    i = TempMessage.indexOf('lb', s);
-                    s = i + 1;
-                    i--;
-                    while(TempMessage[i] == ' ') 
-                        i--;
-                    while(i >= 0 && TempMessage[i] != ' ' && !isNaN(TempMessage[i])) {
-                        x += TempMessage[i];
-                        i--;
-                    }
-                    x = x.split("").reverse().join("");
-                    if(x.length > 0 && !isNaN(x)) {
-                        finalMessage += x + "lb = " + convert(parseInt(x)).from('lb').to('kg').toFixed(0) + "kg\n";
-                    }
-                }
-            }
-            //KG to LB
-            if(message.content.toLowerCase().includes('kg')) {
-                let i = 0;
-                let x;
-                let s = 0;
-                let TempMessage = message.content.toLowerCase();
-                while(i >= 0) {
-                    x = ""
-                    i = TempMessage.indexOf('kg', s);
-                    s = i + 1;
-                    i--;
-                    while(TempMessage[i] == ' ') 
-                        i--;
-                    while(i >= 0 && TempMessage[i] != ' ' && !isNaN(TempMessage[i])) {
-                        x += TempMessage[i];
-                        i--;
-                    }
-                    x = x.split("").reverse().join("");
-                    if(x.length > 0 && !isNaN(x)) {
-                        finalMessage += x + "kg = " + convert(parseInt(x)).from('kg').to('lb').toFixed(0) + "lb\n";
-                    }
-                }
-            }
-        }
-        else {
-            //LB to KG
-            if(message.content.toLowerCase().includes('lb')) {
-                let i = 0;
-                let x;
-                let s = 0;
-                let TempMessage = message.content.toLowerCase();
-                while(i >= 0) {
-                    x = ""
-                    i = TempMessage.indexOf('lb', s);
-                    s = i + 1;
-                    i--;
-                    while(TempMessage[i] == ' ') 
-                        i--;
-                    while(i >= 0 && TempMessage[i] != ' ' && !isNaN(TempMessage[i])) {
-                        x += TempMessage[i];
-                        i--;
-                    }
-                    x = x.split("").reverse().join("");
-                    if(x.length > 0 && !isNaN(x)) {
-                        finalMessage += x + "lb = " + (parseInt(x)/8.4).toFixed(2) + " Gallons of Milk\n";
-                    }
-                }
-            }
-            //KG to LB
-            if(message.content.toLowerCase().includes('kg')) {
-                let i = 0;
-                let x;
-                let s = 0;
-                let TempMessage = message.content.toLowerCase();
-                while(i >= 0) {
-                    x = ""
-                    i = TempMessage.indexOf('kg', s);
-                    s = i + 1;
-                    i--;
-                    while(TempMessage[i] == ' ') 
-                        i--;
-                    while(i >= 0 && TempMessage[i] != ' ' && !isNaN(TempMessage[i])) {
-                        x += TempMessage[i];
-                        i--;
-                    }
-                    x = x.split("").reverse().join("");
-                    if(x.length > 0 && !isNaN(x)) {
-                        finalMessage += x + "kg = " + (parseInt(x)/4.682).toFixed(2) + " Gallons of Milk\n";
-                    }
-                }
-            }
-        }
-        if(finalMessage.length > 0)
-            message.channel.send(finalMessage);
+      //Converts
+      let conversion = Conversion.ConvertInput(message.content);
+        if(conversion.length > 0)
+            message.channel.send(conversion);
     }
 });    
-client.login('NjYyNTIyODA1MTIzOTQwMzUz.XrnuQQ.i7QueF7c75aSsUr1XJznsFcmOHg');
+
+let id = "617859076994367519";
+let y = process.openStdin();
+y.addListener("data", res => {
+  let x = res.toString().trim().split(/ +/g).join(" ");
+  if(x.toLowerCase().includes("!set")) {
+    id = x.trim().split(" ")[1].trim();
+  } else {
+    client.channels.cache.get(id).send(x);
+  }
+});
+
+client.login('NjY0NzE0MjA0MTQ1NjQ3NjE2.Xrs01Q.gJcf0BCYP3Zi0FMZjtvbP56mC3c');
