@@ -14,10 +14,15 @@ client.on('message', msg => {
 
 client.on('message', message => {
     if(!message.author.bot) {
+      //Steroids
+      if(message.content.toLowerCase().includes("steroid")) {
+        message.channel.send("This server does not endorse the use of steroids.");
+      }
       //Converts
       let conversion = Conversion.ConvertInput(message.content);
         if(conversion.length > 0)
             message.channel.send(conversion);
+
     }
 });    
 
