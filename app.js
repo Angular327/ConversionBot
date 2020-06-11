@@ -37,4 +37,4 @@ y.addListener("data", res => {
   }
 });
 
-client.login('NjY0NzE0MjA0MTQ1NjQ3NjE2.Xrs01Q.gJcf0BCYP3Zi0FMZjtvbP56mC3c');
+client.login('');
